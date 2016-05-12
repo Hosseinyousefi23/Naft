@@ -2,16 +2,28 @@ package com.example.naft;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class StaffList extends ListActivity {
-	String[] persons = { "dastan", "cheese" };
+	String[] persons;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		SQLiteDatabase database = openOrCreateDatabase("db", MODE_PRIVATE, null);
+		Cursor resultSet = database.rawQuery("SELECT name FROM Staff;", null);
+		int staffCount = resultSet.getCount();
+		persons = new String[staffCount];
+		resultSet.moveToFirst();
+		for (int i = 0; i < staffCount; i++) {
+			persons[i] = resultSet.getString(resultSet.getColumnIndex("name"));
+			resultSet.moveToNext();
+		}
 		super.onCreate(savedInstanceState);
 
 		// TODO read from database and add to arrayList

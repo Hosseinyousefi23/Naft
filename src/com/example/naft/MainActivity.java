@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,6 +19,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		SQLiteDatabase database = openOrCreateDatabase("db", MODE_PRIVATE, null);
+		database.execSQL("CREATE TABLE IF NOT EXISTS Staff(name VARCHAR);");
 		try {
 			Class<?> ourClass = Class.forName("com.example.naft.StaffList");
 			Intent ourIntent = new Intent(MainActivity.this, ourClass);
