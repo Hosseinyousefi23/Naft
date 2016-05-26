@@ -7,6 +7,7 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="rtl"
         android:orientation="horizontal"
         android:weightSum="100" >
 
@@ -14,7 +15,8 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="50"
-            android:text="@string/ing" />
+            android:text="@string/ing"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="fill_parent"

@@ -20,7 +20,15 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		SQLiteDatabase database = openOrCreateDatabase("db", MODE_PRIVATE, null);
-		database.execSQL("CREATE TABLE IF NOT EXISTS Staff(name VARCHAR);");
+		database.execSQL(
+				"CREATE TABLE IF NOT EXISTS Staff(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL);");
+		database.execSQL(
+				"CREATE TABLE IF NOT EXISTS Place(id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR NOT NULL);");
+		database.execSQL("CREATE TABLE IF NOT EXISTS Mission(id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ " staff INTEGER NOT NULL, place INTEGER NOT NULL, start_year INT NOT NULL, start_month INT NOT NULL,"
+				+ " start_day INT NOT NULL, start_hour INT NOT NULL, start_minute INT NOT NULL, end_year INT ,"
+				+ " end_month INT, end_day INT ,end_hour INT, end_minute INT,"
+				+ " FOREIGN KEY (staff) REFERENCES Staff(id) , FOREIGN KEY (place) REFERENCES Place(id))");
 		try {
 			Class<?> ourClass = Class.forName("com.example.naft.StaffList");
 			Intent ourIntent = new Intent(MainActivity.this, ourClass);
